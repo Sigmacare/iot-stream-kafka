@@ -143,6 +143,44 @@ npm run dev  # For development mode
 }
 ```
 
+
+#### **🔒 Routes Protection & Security Measures**  
+
+
+ **🔹 Authentication Process**  
+- When a **device registers**, it receives a **unique JWT token**.
+- This token must be sent in the **Authorization** header for every request.  
+- The token is **verified** before processing any request to ensure authenticity.  
+
+This authentication and authorization system ensures that **only valid, registered devices** can send data while preventing **unauthorized access, data tampering, and replay attacks**. 🚀
+
+**🔹 Middleware: `authenticateDevice.js`**  
+A middleware function is used to **verify JWT tokens** from incoming requests.  
+
+✅ **Checks for a valid token** in the `Authorization` header.  
+✅ **Verifies the token** using `jsonwebtoken` and `process.env.JWT_SECRET`.  
+✅ **Denies access** if the token is missing, expired, or tampered with.  
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+// Middleware to authenticate device using JWT token
+const authenticateDevice = async (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.status(401).json({ error: 'Access Denied. No token provided.' });
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, device) => {
+        if (err) return res.status(403).json({ error: 'Invalid or expired token.' });
+
+        next();
+    });
+};
+
+module.exports = authenticateDevice;
+```
+
 ---
 
 ## **📊 Database Schema**  

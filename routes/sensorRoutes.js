@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { producer } = require("../config/kafka");
+const authenticateDevice = require("../middleware/authenticateDevice");
 
-router.post("/", async (req, res) => {
+
+// POST /api/sensor
+// Receive sensor data from device
+// Access: Protected (only devices with a valid token can send data)
+router.post("/",authenticateDevice,async (req, res) => {
   try {
     const { device_code, accelX, accelY, accelZ, gyroX, gyroY, gyroZ, heartRate, oxygen } = req.body;
 
