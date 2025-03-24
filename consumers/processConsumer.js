@@ -33,7 +33,7 @@ const processSensorData = async () => {
           resolved: false,
         });
 
-        if (!alert) {
+        if (!alert && (data.accelZ < -9.8 || data.heartRate > 120 || data.heartRate < 40 || data.oxygen < 90)) {
           sendCallAlert(process.env.EMERGENCY_CONTACT);
           alert = new Alert({
             device_code: data.device_code,

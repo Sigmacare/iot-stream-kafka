@@ -18,6 +18,7 @@
     "kafkajs": "^2.2.4",
     "mongoose": "^8.12.1",
     "mqtt": "^5.10.4",
-    "sigmacare-iot": "file:"
+    "sigmacare-iot": "file:",
+    "twilio": "^5.5.1"
   }
 }
