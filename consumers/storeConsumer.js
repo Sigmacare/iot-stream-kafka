@@ -1,13 +1,14 @@
 const { storeConsumer } = require("../config/kafka");
 const { writeApi, Point } = require("../config/influx");
 
-const storeSensorData  = async () => {
-  await storeConsumer.subscribe({ topic: "sensor-data", fromBeginning: true });
+const storeSensorData = async () => {
+  await storeConsumer.subscribe({ topic: "sensor-data", fromBeginning: false });
 
   await storeConsumer.run({
     eachMessage: async ({ message }) => {
       try {
         const data = JSON.parse(message.value.toString());
+        console.log("Processing sensor data:", data);
 
         const point = new Point(process.env.INFLUX_MEASUREMENT)
           .tag("deviceId", data.device_code)
@@ -31,4 +32,4 @@ const storeSensorData  = async () => {
   });
 };
 
-module.exports = storeSensorData ;
+module.exports = storeSensorData;
