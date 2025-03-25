@@ -1,9 +1,28 @@
 const { Kafka } = require("kafkajs");
 require("dotenv").config();
 
+const KAFKA_BROKER = process.env.KAFKA_BROKER;
+const KAFKA_USERNAME = process.env.KAFKA_USERNAME;
+const KAFKA_PASSWORD = process.env.KAFKA_PASSWORD;
+const TOPIC_NAME = process.env.TOPIC_NAME || 'sigma-band-data';
+const CA_PEM = process.env.CA_PEM || 'ca.pem';
+
+
 const kafka = new Kafka({
-  clientId: "sensor-service",
-  brokers: [process.env.KAFKA_BROKER], // Example: "localhost:9092"
+  clientId: 'kafka-proxy',
+  brokers: [KAFKA_BROKER],
+  ssl: {
+      ca: [CA_PEM],
+  },
+  sasl: {
+      mechanism: 'plain',
+      username: KAFKA_USERNAME,
+      password: KAFKA_PASSWORD,
+  },
+  retry: {
+      initialRetryTime: 100,
+      retries: 8,
+    },
 });
 
 // Kafka Producer

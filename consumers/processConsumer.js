@@ -2,7 +2,7 @@ const { processingConsumer } = require("../config/kafka");
 const Alert = require("../models/Alert");
 
 const processSensorData  = async () => {
-  await processingConsumer.subscribe({ topic: "sensor-data", fromBeginning: true });
+  await processingConsumer.subscribe({ topic: "sigma-band-data", fromBeginning: false });
 
   await processingConsumer.run({
     eachMessage: async ({ message }) => {

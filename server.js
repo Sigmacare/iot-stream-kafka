@@ -10,7 +10,7 @@ const processSensorData = require("./consumers/processConsumer");
 
 const app = express();
 app.use(express.json());
-app.use("/sensor", sensorRoutes);
+app.use("/api/sensor", sensorRoutes);
 
 //Connect to Mongo DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

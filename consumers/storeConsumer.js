@@ -2,7 +2,7 @@ const { storeConsumer } = require("../config/kafka");
 const { writeApi, Point } = require("../config/influx");
 
 const storeSensorData  = async () => {
-  await storeConsumer.subscribe({ topic: "sensor-data", fromBeginning: true });
+  await storeConsumer.subscribe({ topic: "sigma-band-data", fromBeginning: false });
 
   await storeConsumer.run({
     eachMessage: async ({ message }) => {
@@ -19,6 +19,8 @@ const storeSensorData  = async () => {
           .floatField("gyroZ", data.gyroZ)
           .floatField("heartRate", data.heartRate)
           .floatField("oxygen", data.oxygen)
+          .floatField("latitude",10.028688)
+          .floatField("longitude",76.328437)
           .timestamp(new Date());
 
         writeApi.writePoint(point);
