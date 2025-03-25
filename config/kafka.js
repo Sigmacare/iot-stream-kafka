@@ -1,4 +1,5 @@
 const { Kafka } = require("kafkajs");
+const fs = require("fs");
 require("dotenv").config();
 
 const KAFKA_BROKER = process.env.KAFKA_BROKER;

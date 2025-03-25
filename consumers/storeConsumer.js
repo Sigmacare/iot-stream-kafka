@@ -8,6 +8,7 @@ const storeSensorData  = async () => {
     eachMessage: async ({ message }) => {
       try {
         const data = JSON.parse(message.value.toString());
+        console.log("Processing sensor data:", data);
 
         const point = new Point(process.env.INFLUX_MEASUREMENT)
           .tag("deviceId", data.device_code)
@@ -33,4 +34,4 @@ const storeSensorData  = async () => {
   });
 };
 
-module.exports = storeSensorData ;
+module.exports = storeSensorData;
