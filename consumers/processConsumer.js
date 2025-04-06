@@ -252,9 +252,7 @@ const processSensorData = async () => {
         );
 
         // Emergency conditions
-        const isEmergency = isFall ||
-          (data.heartRate > 120 || data.heartRate < 40) ||
-          (data.oxygen < 90);
+        const isEmergency = isFall
 
         // Create new alert if emergency detected
         if (!alert && isEmergency) {
