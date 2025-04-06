@@ -286,39 +286,39 @@ const processSensorData = async () => {
           modified = true;
         }
 
-        // Abnormal heart rate detection
-        if ((data.heartRate > 120 || data.heartRate < 40) && !alert?.alertType.includes("Abnormal Heart Rate")) {
-          alert = alert || new Alert({
-            device_code: data.device_code,
-            alertType: [],
-            alertData: data,
-            resolved: false,
-            timestamp: new Date(),
-          });
+        // // Abnormal heart rate detection
+        // if ((data.heartRate > 120 || data.heartRate < 40) && !alert?.alertType.includes("Abnormal Heart Rate")) {
+        //   alert = alert || new Alert({
+        //     device_code: data.device_code,
+        //     alertType: [],
+        //     alertData: data,
+        //     resolved: false,
+        //     timestamp: new Date(),
+        //   });
 
-          alert.alertType.push("Abnormal Heart Rate");
-          alert.alertData = data;
-          alert.timestamp = new Date();
-          client.publish("alerts/heartRate", JSON.stringify(alert));
-          modified = true;
-        }
+        //   alert.alertType.push("Abnormal Heart Rate");
+        //   alert.alertData = data;
+        //   alert.timestamp = new Date();
+        //   client.publish("alerts/heartRate", JSON.stringify(alert));
+        //   modified = true;
+        // }
 
-        // Low oxygen level detection
-        if (data.oxygen < 90 && !alert?.alertType.includes("Low Oxygen Level")) {
-          alert = alert || new Alert({
-            device_code: data.device_code,
-            alertType: [],
-            alertData: data,
-            resolved: false,
-            timestamp: new Date(),
-          });
+        // // Low oxygen level detection
+        // if (data.oxygen < 90 && !alert?.alertType.includes("Low Oxygen Level")) {
+        //   alert = alert || new Alert({
+        //     device_code: data.device_code,
+        //     alertType: [],
+        //     alertData: data,
+        //     resolved: false,
+        //     timestamp: new Date(),
+        //   });
 
-          alert.alertType.push("Low Oxygen Level");
-          alert.alertData = data;
-          alert.timestamp = new Date();
-          client.publish("alerts/oxygen", JSON.stringify(alert));
-          modified = true;
-        }
+        //   alert.alertType.push("Low Oxygen Level");
+        //   alert.alertData = data;
+        //   alert.timestamp = new Date();
+        //   client.publish("alerts/oxygen", JSON.stringify(alert));
+        //   modified = true;
+        // }
 
         if (modified) {
           await alert.save();
