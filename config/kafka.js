@@ -13,23 +13,23 @@ const kafka = new Kafka({
   clientId: 'kafka-proxy',
   brokers: [KAFKA_BROKER],
   ssl: {
-      ca: [CA_PEM],
+    ca: [CA_PEM],
   },
   sasl: {
-      mechanism: 'plain',
-      username: KAFKA_USERNAME,
-      password: KAFKA_PASSWORD,
+    mechanism: 'plain',
+    username: KAFKA_USERNAME,
+    password: KAFKA_PASSWORD,
   },
   retry: {
-      initialRetryTime: 100,
-      retries: 8,
-    },
+    initialRetryTime: 100,
+    retries: 8,
+  },
 });
 
 // Kafka Producer
 const producer = kafka.producer();
-const storeConsumer = kafka.consumer({ groupId: "store-group" });
-const processingConsumer = kafka.consumer({ groupId: "processing-group" });
+const storeConsumer = kafka.consumer({ groupId: "store-group-2" + Date.now() });
+const processingConsumer = kafka.consumer({ groupId: "processing-group-2" + Date.now() });
 
 const initKafka = async () => {
   await producer.connect();
