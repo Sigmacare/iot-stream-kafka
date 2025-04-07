@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors"); // Add this line
 
-const sensorRoutes = require("./routes/sensorRoutes");
+// const sensorRoutes = require("./routes/sensorRoutes");
 const alertRoutes = require("./routes/alertRoutes");
 const { initKafka } = require("./config/kafka");
 const storeSensorData = require("./consumers/storeConsumer");
@@ -12,7 +12,7 @@ const processSensorData = require("./consumers/processConsumer");
 const app = express();
 app.use(express.json());
 app.use(cors()); // Add this line
-app.use("/api/sensor", sensorRoutes);
+// app.use("/api/sensor", sensorRoutes);
 app.use("/alerts", alertRoutes);
 
 //Connect to Mongo DB
